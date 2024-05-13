@@ -240,7 +240,7 @@ public class view_register extends JFrame {
 		
 		btn_photo = new JButton("Foto");
 		btn_photo.setFont(new Font("Century", Font.BOLD, 12));
-		btn_photo.setBounds(384, 177, 59, 21);
+		btn_photo.setBounds(403, 177, 73, 21);
 		pn_register.add(btn_photo);
 		
 		//Declarar e instanciar al controlador

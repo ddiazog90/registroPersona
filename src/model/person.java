@@ -7,15 +7,15 @@ import libreriaVersion2.generic;
 public class person {
  
 	private generic<String,String>dt_p;
-	private generic<Integer,Long>dte_p;
+	private generic<Integer,String>dte_p;
 	public person() {
 		dt_p=new generic<>();
 		dte_p=new generic<>();
 	}
-	public person(String names, int age, long dni, String gender,String studiesLevel,String...hobbies) {
-	dt_p=new generic<>(names,gender,studiesLevel);
+	public person(String names, int age, String dni, String gender,String studiesLevel,String path,String...hobbies) {
+	dt_p=new generic<>(names,gender,studiesLevel,dni);
 		dt_p.loadElements(hobbies);
-		dte_p=new generic<>(age,dni);
+		dte_p=new generic<>(age,path);
 	}
 	public String getNames() {
 		return dt_p.getAttribute1();
@@ -44,14 +44,20 @@ public class person {
 	public int getAge() {
 		return dte_p.getAttribute1();
 	}
-	public long getDNI() {
-		return dte_p.getAttribute3();
+	public String getDNI() {
+		return dt_p.getAttribute4();
 	}
 	public void setAge(int age) {
 		dte_p.setAttribute1(age);
 	}
-	public void setDNI(long dni) {
-		dte_p.setAttribute3(dni);
+	public void setDNI(String dni) {
+		dt_p.setAttribute4(dni);
+	}
+	public String getPathImage() {
+		return dte_p.getAttribute3();
+	}
+	public void setPathImage(String path) {
+		dte_p.setAttribute3(path);
 	}
 	@Override
 	public String toString() {
@@ -63,9 +69,9 @@ public class person {
 	public String personalInfo() {
 		String hobbies="";
 		for(String h:getHobbies()) {
-			hobbies+=h+",";
+			hobbies+=h;
 		}
-		return String.format("%s;%d;%d;%s;%s;%s",getNames(),getAge(),getDNI(),getGender(),getStudiesLevel(),hobbies);
+		return String.format("%s;%d;%s;%s;%s;%s;%s",getNames(),getAge(),getDNI(),getGender(),getStudiesLevel(),hobbies,getPathImage());
 	}
 	
 

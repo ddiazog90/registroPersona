@@ -7,7 +7,7 @@ public class validateFields implements parametrizable{
 	public static boolean validateAge(int age) {
 		return String.valueOf(age).matches(ERAge);
 	}
-	public static boolean validateDNI(long dni) {
-		return String.valueOf(dni).matches(ERDNI);
+	public static boolean validateDNI(String dni) {
+		return dni.matches(ERDNI);
 	}
 }
