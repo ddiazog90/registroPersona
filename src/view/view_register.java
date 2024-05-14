@@ -46,6 +46,7 @@ public class view_register extends JFrame {
 	public JButton btn_save;
 	public JLabel lbl_photo;
 	public JComboBox cbn_level;
+	public JButton btn_search;
 
 	/**
 	 * Launch the application.
@@ -149,7 +150,7 @@ public class view_register extends JFrame {
 		
 		txt_cedula = new JTextField();
 		txt_cedula.setToolTipText("Formato: 1716975501 o 171697550-1");
-		txt_cedula.setBounds(122, 90, 214, 28);
+		txt_cedula.setBounds(122, 90, 182, 28);
 		txt_cedula.setFont(new Font("Century", Font.PLAIN, 12));
 		txt_cedula.setColumns(10);
 		pn_register.add(txt_cedula);
@@ -242,6 +243,11 @@ public class view_register extends JFrame {
 		btn_photo.setFont(new Font("Century", Font.BOLD, 12));
 		btn_photo.setBounds(403, 177, 73, 21);
 		pn_register.add(btn_photo);
+		
+		btn_search = new JButton("...");
+		btn_search.setToolTipText("Buscar Persona");
+		btn_search.setBounds(307, 89, 29, 28);
+		pn_register.add(btn_search);
 		
 		//Declarar e instanciar al controlador
 		logic_view_register lvr=new logic_view_register(this);

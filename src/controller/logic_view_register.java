@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,7 +22,8 @@ public class logic_view_register implements ActionListener{
 	private view_register vr;
 	private person p=new person();
 	private personDAO pdao=new personDAO();
-	private files photo;
+	private files photo = new files("");
+	private List<person>persons=new ArrayList();
 
 		
 	public logic_view_register(view_register vr) {
@@ -28,6 +31,7 @@ public class logic_view_register implements ActionListener{
 		this.vr = vr;
 		this.vr.btn_photo.addActionListener(this);
 		this.vr.btn_save.addActionListener(this);
+		this.vr.btn_search.addActionListener(this);
 		//Cargar los niveles de estudio
 		loadStudiesLevel();
 	}
@@ -38,6 +42,11 @@ public class logic_view_register implements ActionListener{
 		}
 	}
 
+	//Abrir un foto en un label
+	private void loadPhoto(String path) {
+		ImageIcon imgPhoto=new ImageIcon(path);
+		vr.lbl_photo.setIcon(imgPhoto);
+	}
 
 
 	@Override
@@ -46,12 +55,9 @@ public class logic_view_register implements ActionListener{
 		if(e.getSource()==vr.btn_photo) {
 			//Eventos para captura la foto
 //			JOptionPane.showMessageDialog(vr, "Cargar Foto");
-			photo = new files("");
-			photo.getFileChooser(vr, "jpeg");
-//			vr.lbl_photo.setIcon(new ImageIcon(view_register.class.getResource(photo.getFile().getAbsolutePath())));
-			ImageIcon imgPhoto=new ImageIcon(photo.getFile().getAbsolutePath());
 			
-			vr.lbl_photo.setIcon(imgPhoto);
+			photo.getFileChooser(vr, "jpeg");
+			loadPhoto(photo.getFile().getAbsolutePath());
 			
 		}else if(e.getSource()==vr.btn_save) {
 			//Eventos para guardar los datos
@@ -80,6 +86,23 @@ public class logic_view_register implements ActionListener{
 			}
 			
 			
+		}else if(e.getSource()==vr.btn_search) {
+			p.setDNI(JOptionPane.showInputDialog(vr,"Ingrese el DNI?"));
+			try {
+				persons=pdao.readerPerson();
+				for(person ps:persons) {
+					if(ps.getDNI().equals(p.getDNI())) {
+						this.p=ps;
+						vr.txt_names.setText(p.getNames());
+						vr.txt_cedula.setText(p.getDNI());
+						loadPhoto(p.getPathImage());
+						//terminar de implementar la carga de datos
+					}
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(vr, "Error al consultar los datos");
+			}
 		}
 		
 	}
